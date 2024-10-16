@@ -4,7 +4,7 @@ import { useMasterContract } from "./hooks/useMasterContract";
 import { useWalletContract } from "./hooks/useWalletContract";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { fromNano ,address} from "ton-core";
-import React, { useState } from 'react'
+import /* React, */ { useState } from 'react'
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
 
   const { master_contract_address,sendDeployByMaster, master_contract_balance, } = useMasterContract();
 
-  const {  ch_number,eggs_number,wallet_contract_balance,wallet_contract_address,first_buy,last_calc,
+  const {  ch_number,eggs_number,wallet_contract_balance,wallet_contract_address,/* first_buy,last_calc, */
 send_buy_chicken_order,wallet_owner_address, wallet_referal_address,wallet_master_address,
     send_sell_chicken_order,send_recive_eggs_order} = useWalletContract();
 
