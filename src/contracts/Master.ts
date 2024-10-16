@@ -2,14 +2,17 @@ import { Address, beginCell, Cell, Contract, contractAddress, ContractProvider, 
 
 
 export type MasterConfig = {
+    total_supply : Number;
+    admin_address : Address;
     wallet_contract_codecell : Cell;
-    owner_address : Address;
+
 };
 
 export function masterConfigToCell(config: MasterConfig): Cell {
     return beginCell()
+    .storeCoins(0)
+    .storeAddress(config.admin_address)
     .storeRef(config.wallet_contract_codecell)
-    .storeAddress(config.owner_address)
     .endCell();
 }
 
@@ -34,11 +37,11 @@ export class Master implements Contract {
         });
     }
 
-    async sendDeployByMaster(provider: ContractProvider, via: Sender, value: bigint) {
+    async sendDeployByMaster(provider: ContractProvider, via: Sender, value: bigint,referal_address:Address) {
         await provider.internal(via, {
             value,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
-            body: beginCell().storeUint(4,32).endCell(),
+            body: beginCell().storeUint(0,32).storeAddress(referal_address).endCell(),
         });
     }
 
@@ -52,7 +55,7 @@ export class Master implements Contract {
         async getBalance (provider : ContractProvider) {
             const { stack } = await provider.get("balance", []);
             return{
-              balance: stack.readNumber(),
+              number: stack.readNumber(),
             }
     }
 }

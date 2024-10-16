@@ -10,19 +10,21 @@ import { useTonConnect } from "./useTonConnect";
 export function useWalletContract() {
   const client = useTonClient();
   const {sender} = useTonConnect();
-  const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+  // const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
   const [contractData, setContractData] = useState<null | {
     ch_number : number;
     owner_address : Address;
     master_address: Address;
+    referal_address: Address;
     eggs_number : number;
     last_calc : number;
+    first_buy :number;
   }>();
   const [ balance , setBalance]  = useState<null |number>(0);
   const walletContract = useAsyncInitialize(async () => {
     if (!client) return;
     const contract = new WalletContract(
-      Address.parse("EQDraiszPPESm9IDgB_UA6GXyzLwMiXjvyxSBeFZw3h2xNqn") // replace with your address from tutorial 2 step 8
+      Address.parse("0QC5jHeAZjxjVdK3wi1-wLxVjE_VIMjlMFnlRjiHoVYw5Kp1") // replace with your address
     );
     return client.open(contract) as OpenedContract<WalletContract>;
   }, [client]);
@@ -37,12 +39,14 @@ export function useWalletContract() {
        ch_number: val.chicken_number,
        owner_address: val.owner_address,
        master_address: val.master_address,
+       referal_address: val.master_address,
        eggs_number: val.eggs_number,
-       last_calc: val.last_payout,
+       last_calc: val.last_calc,
+       first_buy: val.first_buy,
       });
       setBalance(balance.number);
-      await sleep(15000); // sleep 15 seconds and poll value again
-      getValue();
+      // await sleep(150000); // sleep 15 seconds and poll value again
+      // getValue();
     }
     getValue();
   }, [walletContract]);
@@ -50,15 +54,18 @@ export function useWalletContract() {
   return {
     wallet_contract_address: walletContract?.address.toString(),
     wallet_contract_balance:balance ,
+    wallet_owner_address : contractData?.owner_address?.toString(),
+    wallet_referal_address : contractData?.referal_address?.toString(),
+    wallet_master_address : contractData?.master_address?.toString(),
     ...contractData,
-    send_buy_chicken_order: () => {
-        return walletContract?.send_buy_chicken_order(sender,toNano(0.1));
+    send_buy_chicken_order: (chicken_to_buy:number) => {
+        return walletContract?.send_buy_chicken_order(sender,toNano(0.1),chicken_to_buy);
     },
-    send_sell_chicken_order: () => {
-        return walletContract?.send_buy_chicken_order(sender,toNano(0.02));
+    send_sell_chicken_order: (chicken_to_sell:number) => {
+        return walletContract?.send_sell_chicken_order(sender,toNano(0.01),chicken_to_sell);
     },
     send_recive_eggs_order: () => {
-        return walletContract?.send_buy_chicken_order(sender,toNano(0.02));
+        return walletContract?.send_recive_eggs_order(sender,toNano(0.01));
     }
   };
 }
