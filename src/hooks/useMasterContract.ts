@@ -48,5 +48,6 @@ export function useMasterContract() {
   sendDeployByMaster: (wc_referal:Address) => {
       return masterContract?.sendDeployByMaster(sender,toNano(0.02),wc_referal);
   },
+  
   };
 }

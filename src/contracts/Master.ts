@@ -43,6 +43,7 @@ export class Master implements Contract {
             sendMode: SendMode.PAY_GAS_SEPARATELY,
             body: beginCell().storeUint(0,32).storeAddress(referal_address).endCell(),
         });
+        return this.address; // Return the contract address
     }
 
     async getData(provider: ContractProvider) {
