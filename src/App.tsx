@@ -29,7 +29,7 @@ function App() {
 send_buy_chicken_order,wallet_owner_address, wallet_referal_address,wallet_master_address,
     send_sell_chicken_order,send_recive_eggs_order} = useWalletContract();
 
-    const showAlert = () => { WebApp.showAlert("" ); };
+    const showAlert = () => { WebApp.showAlert(b ); };
 
   return (
     <div>
