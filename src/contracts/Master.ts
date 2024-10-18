@@ -1,4 +1,4 @@
-import { Address, beginCell, Cell, Contract, contractAddress, ContractProvider, Sender, SendMode } from 'ton-core';
+import { Address, beginCell, Cell, Contract, contractAddress, ContractProvider, Sender, SendMode, TupleItemSlice } from 'ton-core';
 
 
 export type MasterConfig = {
@@ -43,7 +43,6 @@ export class Master implements Contract {
             sendMode: SendMode.PAY_GAS_SEPARATELY,
             body: beginCell().storeUint(0,32).storeAddress(referal_address).endCell(),
         });
-        return this.address; // Return the contract address
     }
 
     async getData(provider: ContractProvider) {
@@ -59,5 +58,18 @@ export class Master implements Contract {
               number: stack.readNumber(),
             }
     }
+
+    async getWalletAddress (provider:ContractProvider , owner_address:Address , referal_address:Address ){
+
+        const ownerc : Cell = beginCell().storeAddress(owner_address).endCell();
+        const referalc : Cell = beginCell().storeAddress(referal_address).endCell();
+        const tupleItemSlice: TupleItemSlice = { type: 'slice', cell: ownerc };
+        const tupleItemSlice2: TupleItemSlice = { type: 'slice', cell: referalc };
+        const { stack } = await provider.get("get_wallet_address", [tupleItemSlice , tupleItemSlice2]);
+        return {
+          wallet_contract_address : stack.readAddress(),
+        }
+    }
+    
 }
 
