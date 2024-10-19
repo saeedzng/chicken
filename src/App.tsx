@@ -3,7 +3,7 @@ import { TonConnectButton } from "@tonconnect/ui-react";
 import { useMasterContract } from "./hooks/useMasterContract";
 import { useWalletContract } from "./hooks/useWalletContract";
 import { useTonConnect } from "./hooks/useTonConnect";
-import { fromNano, address } from "ton-core";
+import { fromNano, address, Address } from "ton-core";
 import { useState } from 'react';
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -18,36 +18,30 @@ function App() {
 
   const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address,
     send_buy_chicken_order, wallet_owner_address, wallet_referal_address, wallet_master_address,
-    send_sell_chicken_order, send_recive_eggs_order } = useWalletContract();
+    send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(Address.parse("kQDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-S3jL"));
 
   const [referal_address, setReferal_address] = useState('');
 
   return (
     <div>
 
-      <div>
-        <TonConnectButton />
-      </div>
-
-      {page_n == 0 && (
-        <>
-          <h2>welcome to chicken Farm</h2>
+     {page_n == 0 && (
+        <><div><TonConnectButton/></div>
+          <h1>welcome to chicken Farm</h1>
+          {!connected && <p>Please Log in To Coninue</p>}               
           {connected && (
             <><label>your referal address  </label><>
               <input type="text" id="create_contract_b" value={referal_address} onChange={(e) => setReferal_address(e.target.value)} /><br />
               <br />
               <button className='button' onClick={() => {
-                sendDeployByMaster(address(referal_address));
+                sendDeployByMaster(address(referal_address));window.location.reload();
               }}> Create Wallet Contract</button><br />
             </>
               <div>
-                <label>Deployed contract at: {wc_addressss && <div>{wc_addressss.toString()}</div>}</label>
-
+                <label>Deployed contract at: <a > {wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
               </div>
+              <button onClick={() =>{page_n = 1;window.location.reload()}} > Open Wallet Contract </button>
             </>
-          )}
-          {!connected && (
-            <p>please Log in To coninue</p>
           )}
         </>
       )}
