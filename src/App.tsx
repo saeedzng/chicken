@@ -10,7 +10,7 @@ function App() {
   const [page_n, setPageN] = useState(0); // Use useState for managing page navigation
   const { connected } = useTonConnect();
   const { master_contract_address, sendDeployByMaster, master_contract_balance, wc_addressss } = useMasterContract();
-  const [walletContractAddress, setWalletContractAddress] = useState<string | null>(null); // Add a state for the wallet contract address
+  const [walletContractAddress, setWalletContractAddress] = useState<string | null>(null); // Corrected the state type to string or null
   const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, 
     send_buy_chicken_order, wallet_owner_address, wallet_referal_address, wallet_master_address,
     send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("kQDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-S3jL"));
@@ -57,7 +57,6 @@ function App() {
           {master_contract_balance && <div className='Hint'>{fromNano(master_contract_balance)} ton</div>}
         </div>
       )}
-
       {page_n === 2 && (
         <div>
           <h1>Wallet Contract</h1>
@@ -85,6 +84,18 @@ function App() {
             {connected && (
               <a onClick={() => { send_recive_eggs_order(); }}>get earned eggs</a>
             )}
+          </div>
+          <div>
+            <button onClick={() => {
+              const shareUrl = `${window.location.href}?walletAddress=${wallet_contract_address}`;
+              navigator.share({
+                title: 'Chicken Farm Wallet Contract',
+                text: 'Check out this wallet contract address!',
+                url: shareUrl,
+              });
+            }}>
+              Share Wallet Address
+            </button>
           </div>
         </div>
       )}
