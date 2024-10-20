@@ -5,7 +5,7 @@ import { useWalletContract } from "./hooks/useWalletContract";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { fromNano, address, Address } from "ton-core";
 import { useState, useEffect } from 'react';
-
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 function App() {
   const [page_n, setPageN] = useState(0); // Use useState for managing page navigation
   const { connected } = useTonConnect();
@@ -95,7 +95,7 @@ function App() {
           </div>
           <div>
             <button onClick={() => {
-              const shareUrl = `https://t.me/@ch_farm_bot?walletAddress=${wallet_contract_address}`;
+              const shareUrl = `https://t.me/@ch_farm_bot?startapp=${wallet_contract_address}`;
               navigator.share({
                 title: 'Chicken Farm Wallet Contract',
                 text: 'Check out this wallet contract address!',

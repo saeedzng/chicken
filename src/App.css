@@ -1,40 +1,43 @@
 #root {
-  max-width: 1280px;
+  max-width: 100vw; /* Full width */
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2vh; /* Scaled padding */
   text-align: center;
   background: linear-gradient(to right, #0000ff, #8a2be2); /* Blue to purple gradient */
+  font-size: 2vw; /* Scaled font size */
 }
 
 .menu {
   background-color: #333;
   overflow: hidden;
-  padding: 10px 0; /* Add padding to increase space */
-  border-radius: 10px; /* Rounded edges for the menu */
+  padding: 1vh 0; /* Scaled padding */
+  border-radius: 2vw; /* Scaled border radius */
 }
 
 .menu ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  text-align: center; /* Center the menu items */
+  display: flex; /* Make the menu horizontal */
+  justify-content: space-around; /* Space items evenly */
+  flex-direction: row-reverse; /* Align items from right to left */
 }
 
 .menu ul li {
   display: inline; /* Ensure items are inline */
-  margin: 0 10px; /* Add margin to increase space between items */
 }
 
 .menu ul li button, .menu ul li > * {
   display: inline-block;
   color: white;
   text-align: center;
-  padding: 14px 20px;
+  padding: 1vh 2vw; /* Scaled padding */
   text-decoration: none;
   background-color: #333;
   border: none;
-  border-radius: 20px; /* Rounded edges for the buttons */
+  border-radius: 2vw; /* Scaled border radius */
   vertical-align: middle; /* Align items vertically in the middle */
+  font-size: 1.5vw; /* Scaled font size for menu items */
 }
 
 .menu ul li button:hover, .menu ul li > *:hover {
@@ -47,44 +50,46 @@
   display: inline-flex; /* Flexbox for better alignment */
   align-items: center; /* Center items vertically */
   justify-content: center; /* Center items horizontally */
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  font-size: 1.5vw; /* Match font size with menu items */
 }
 
 .card {
-  padding: 2em;
+  padding: 4vh 2vw; /* Scaled padding */
 }
 
 .read-the-docs {
   color: #888;
+  font-size: 1.5vw; /* Scaled font size */
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for horizontal menu */
 @media (max-width: 768px) {
   #root {
-    padding: 1rem;
+    padding: 1vh;
+    font-size: 3vw; /* Further reduce font size for mobile */
+  }
+
+  .menu ul {
+    flex-direction: row-reverse; /* Align items from right to left on mobile */
   }
 
   .menu ul li {
-    display: block;
-    margin: 0.5rem 0;
+    display: inline-block; /* Ensure items are inline on mobile */
+    margin: 0 1vw; /* Add margin to increase space between items */
   }
 
   .menu ul li button, .menu ul li > * {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 0.5rem 0;
+    padding: 0.8vh 1.5vw; /* Smaller padding for mobile */
+    border-radius: 2vw;
+    font-size: 1.2vw; /* Smaller font size for menu items on mobile */
   }
 
   .logo {
-    height: 4em;
+    height: 4vh; /* Scaled height */
+  }
+
+  .Hint {
+    font-size: 1.2vw; /* Scaled font size */
+    overflow-wrap: break-word; /* Ensure long addresses wrap properly */
   }
 }
