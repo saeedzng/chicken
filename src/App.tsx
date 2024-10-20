@@ -95,7 +95,7 @@ function App() {
           </div>
           <div>
             <button onClick={() => {
-              const shareUrl = `@ch_farm_bot ${window.location.href}?walletAddress=${wallet_contract_address}`;
+              const shareUrl = `https://t.me/@ch_farm_bot?walletAddress=${wallet_contract_address}`;
               navigator.share({
                 title: 'Chicken Farm Wallet Contract',
                 text: 'Check out this wallet contract address!',
