@@ -7,7 +7,7 @@ import { fromNano, address, Address } from "ton-core";
 import { useState } from 'react';
 
 function App() {
-  const [page_n, setPageN] = useState(0);  // Use useState for managing page navigation
+  const [page_n, setPageN] = useState(0);
   const { connected } = useTonConnect();
   const { master_contract_address, sendDeployByMaster, master_contract_balance, wc_addressss } = useMasterContract();
   const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, 
@@ -16,17 +16,17 @@ function App() {
   const [referal_address, setReferal_address] = useState('');
 
   return (
-    <div>
+    <div className="app-container">
       <nav className="menu">
         <ul>
           <li><button onClick={() => setPageN(0)}>Home</button></li>
           <li><button onClick={() => setPageN(1)}>Master Contract</button></li>
           <li><button onClick={() => setPageN(2)}>Wallet Contract</button></li>
-          <li><TonConnectButton /></li>
+          <li><TonConnectButton className="ton-connect-button" /></li>
         </ul>
       </nav>
       {page_n === 0 && (
-        <>
+        <div className="content">
           <h1>Welcome to Chicken Farm</h1>
           {!connected && <p>Please Log in To Continue</p>}
           {connected && (
@@ -40,10 +40,10 @@ function App() {
               <button onClick={() => setPageN(2)}>Open Wallet Contract</button>
             </>
           )}
-        </>
+        </div>
       )}
       {page_n === 1 && (
-        <div>
+        <div className="content">
           <h1>Master Contract</h1>
           <b>Master contract Address</b>
           <div className='Hint'>{master_contract_address}</div>
@@ -52,7 +52,7 @@ function App() {
         </div>
       )}
       {page_n == 2 && (
-        <div>
+        <div className="content">
           <h1>Wallet Contract</h1>
           <div className='Card'>
             <div><b>Wallet contract balance</b></div>
@@ -69,14 +69,12 @@ function App() {
             {eggs_number && <div className='Hint'>{fromNano(eggs_number)} ton</div>}
             <div><b>Wallet chicken number</b></div>
             <div className='Hint'>{ch_number}</div>
-            {connected && page_n == 2 && (
-              <a onClick={() => { send_buy_chicken_order(1); }}>buy 1 chicken</a>
-            )}<br />
             {connected && (
-              <a onClick={() => { send_sell_chicken_order(1); }}>sell 1 chicken</a>
-            )}<br />
-            {connected && (
-              <a onClick={() => { send_recive_eggs_order(); }}>get earned eggs</a>
+              <>
+                <a onClick={() => { send_buy_chicken_order(1); }}>buy 1 chicken</a><br />
+                <a onClick={() => { send_sell_chicken_order(1); }}>sell 1 chicken</a><br />
+                <a onClick={() => { send_recive_eggs_order(); }}>get earned eggs</a>
+              </>
             )}
           </div>
         </div>
