@@ -4,7 +4,7 @@ import { useMasterContract } from "./hooks/useMasterContract";
 import { useWalletContract } from "./hooks/useWalletContract";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { fromNano, address, Address } from "ton-core";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [page_n, setPageN] = useState(0); // Use useState for managing page navigation
@@ -15,6 +15,15 @@ function App() {
     send_buy_chicken_order, wallet_owner_address, wallet_referal_address, wallet_master_address,
     send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("kQDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-S3jL"));
   const [referal_address, setReferal_address] = useState('');
+
+  // Extract referral address from URL parameters and update state
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const walletAddressFromUrl = urlParams.get('walletAddress');
+    if (walletAddressFromUrl) {
+      setReferal_address(walletAddressFromUrl);
+    }
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   return (
     <div>
