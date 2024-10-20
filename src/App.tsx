@@ -41,8 +41,7 @@ function App() {
           {!connected && <p>Please Log in To Continue</p>}
           {connected && (
             <>
-              <label>Your referral address</label>
-              <input type="text" id="create_contract_b" value={referal_address} onChange={(e) => setReferal_address(e.target.value)} /><br /><br />
+              <label>Your referral address: <span id="create_contract_b">{referal_address}</span></label><br /><br />
               <button className='button' onClick={() => { sendDeployByMaster(address(referal_address)); window.location.reload(); }}>Create Wallet Contract</button><br />
               <div>
                 <label>Deployed contract at: <a>{wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
@@ -66,7 +65,7 @@ function App() {
           {master_contract_balance && <div className='Hint'>{fromNano(master_contract_balance)} ton</div>}
         </div>
       )}
-      {page_n === 2 && (
+      {page_n === 2  && (
         <div>
           <h1>Wallet Contract</h1>
           <div className='Card'>
