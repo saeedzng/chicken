@@ -5,7 +5,7 @@ import { useWalletContract } from "./hooks/useWalletContract";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { fromNano, address, Address } from "ton-core";
 import { useState, useEffect } from 'react';
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 function App() {
   const [page_n, setPageN] = useState(0); // Use useState for managing page navigation
   const { connected } = useTonConnect();
@@ -27,12 +27,19 @@ function App() {
 
   return (
     <div>
+      <div className="header">
+        <div className="left">
+          <TonConnectButton />
+        </div>
+        <div className="right">
+          <img src="./logo.png" alt="Logo" className="logo" />
+        </div>
+      </div>
       <nav className="menu">
         <ul>
           <li><button onClick={() => setPageN(0)}>Home</button></li>
           <li><button onClick={() => setPageN(1)}>Master Contract</button></li>
           <li><button onClick={() => setPageN(2)}>Wallet Contract</button></li>
-          <li><TonConnectButton /></li>
         </ul>
       </nav>
       {page_n === 0 && (
@@ -41,7 +48,7 @@ function App() {
           {!connected && <p>Please Log in To Continue</p>}
           {connected && (
             <>
-              <label>Referral address: {referal_address}</label><br /><br /> 
+              <label>Referral address: {referal_address}</label><br /><br />  {/* Changed input to label */}
               <button className='button' onClick={() => { sendDeployByMaster(address(referal_address)); window.location.reload(); }}>Create Wallet Contract</button><br />
               <div>
                 <label>Deployed contract at: <a>{wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
@@ -95,11 +102,11 @@ function App() {
           </div>
           <div>
             <button onClick={() => {
-              const shareUrl = `https://t.me/@ch_farm_bot?startapp=${wallet_contract_address}`;
+              const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?walletAddress=${wallet_contract_address}`;
               navigator.share({
                 title: 'Chicken Farm Wallet Contract',
                 text: 'Check out this wallet contract address!',
-                url: shareUrl,
+                url: telegramShareUrl,
               });
             }}>
               Share Wallet Address
