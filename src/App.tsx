@@ -41,7 +41,7 @@ function App() {
           {!connected && <p>Please Log in To Continue</p>}
           {connected && (
             <>
-              <label>Referral address: {referal_address}</label><br /><br />  {/* Changed input to label */}
+              <label>Referral address: {referal_address}</label><br /><br /> 
               <button className='button' onClick={() => { sendDeployByMaster(address(referal_address)); window.location.reload(); }}>Create Wallet Contract</button><br />
               <div>
                 <label>Deployed contract at: <a>{wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
@@ -95,7 +95,7 @@ function App() {
           </div>
           <div>
             <button onClick={() => {
-              const shareUrl = `${window.location.href}?walletAddress=${wallet_contract_address}`;
+              const shareUrl = `@ch_farm_bot ${window.location.href}?walletAddress=${wallet_contract_address}`;
               navigator.share({
                 title: 'Chicken Farm Wallet Contract',
                 text: 'Check out this wallet contract address!',
