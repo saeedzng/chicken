@@ -3,7 +3,65 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background: linear-gradient(to right, #3f3f85, #5f1e9c); /* Blue to purple gradient */
+  background: linear-gradient(to right, #0000ff, #8a2be2); /* Blue to purple gradient */
+}
+
+.menu {
+  background-color: #333;
+  overflow: hidden;
+  padding: 10px 0; /* Add padding to increase space */
+  border-radius: 10px; /* Rounded edges for the menu */
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center; /* Center the menu items */
+}
+
+.menu ul li {
+  display: inline; /* Ensure items are inline */
+  margin: 0 10px; /* Add margin to increase space between items */
+}
+
+.menu ul li button, .menu ul li > * {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  background-color: #333;
+  border: none;
+  border-radius: 20px; /* Rounded edges for the buttons */
+  vertical-align: middle; /* Align items vertically in the middle */
+}
+
+.menu ul li button:hover, .menu ul li > *:hover {
+  background-color: #575757;
+}
+
+.ton-connect-button {
+  display: flex; /* Flexbox for better alignment */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  padding: 0 14px; /* Adjust padding to match other buttons */
+  height: auto;
+  background-color: #333; /* Ensure the background matches */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 20px; /* Rounded edges */
+  cursor: pointer;
+}
+
+.ton-connect-button img {
+  margin-right: 8px; /* Space between logo and text */
+  height: 1.5em; /* Adjust height of the logo */
+  width: auto;
+}
+
+.ton-connect-button span {
+  font-size: 14px; /* Adjust text size if necessary */
 }
 
 .logo {
