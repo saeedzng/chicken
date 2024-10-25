@@ -27,7 +27,7 @@ function App() {
   const {master_contract_address,sendDeployByMaster,get_user_wallet_address,master_contract_balance,wc_addressss} = useMasterContract(); 
   const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, send_buy_chicken_order, wallet_owner_address,
   wallet_referal_address, wallet_master_address,send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(
-  walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("kQDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-S3jL"));
+  walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("empty1"));
 
 
 
@@ -60,7 +60,7 @@ function App() {
               
               const wc = get_user_wallet_address(Address.parse (owner_address),Address.parse (referal_address));
                 sendDeployByMaster(address(referal_address));
-                setWalletContractAddress(wc? wc.toString() : "empty")
+                setWalletContractAddress(wc? wc.toString() : "empty2")
                 setPageN(2);
                  }}>Create Wallet Contract</button><br />
               <div>
