@@ -41,7 +41,7 @@ export function useMasterContract() {
     }
     getValue();
   }, [masterContract]);
-
+  
   return {
     master_contract_address: masterContract?.address.toString({bounceable: false, testOnly: true}),
     master_contract_balance: balance,
