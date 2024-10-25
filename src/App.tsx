@@ -6,6 +6,12 @@ import { useTonConnect } from "./hooks/useTonConnect";
 import { fromNano, address, Address } from "ton-core";
 import { useState, useEffect } from 'react';
 
+declare global {
+  interface Window {
+    Telegram: any;
+  }
+}
+
 function App() {
   const [page_n, setPageN] = useState(0); // Use useState for managing page navigation
   const { connected } = useTonConnect();
@@ -18,7 +24,7 @@ function App() {
 
   // Extract referral address from URL parameters and update state
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.Telegram.WebApp.initData);
     const walletAddressFromUrl = urlParams.get('walletAddress');
     if (walletAddressFromUrl) {
       setReferal_address(walletAddressFromUrl);
@@ -102,7 +108,13 @@ function App() {
           </div>
           <div>
             <button onClick={() => {
-              const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?walletAddress=${wallet_contract_address}`;
+              // const queryId = window.Telegram.WebApp.initDataUnsafe.query_id;
+              const username = window.Telegram.WebApp.initDataUnsafe.user?.username || 'unknown';
+              const params = new URLSearchParams();
+              params.append('walletAddress', wallet_contract_address || '');
+              params.append('username', username);
+              window.Telegram.WebApp.sendData(params.toString());
+              const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?${params.toString()}`;
               navigator.share({
                 title: 'Chicken Farm Wallet Contract',
                 text: 'Check out this wallet contract address!',
