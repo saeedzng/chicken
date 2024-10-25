@@ -17,7 +17,7 @@ function App() {
   const { connected } = useTonConnect();
   const { master_contract_address, sendDeployByMaster, master_contract_balance, wc_addressss } = useMasterContract();
   const [walletContractAddress, setWalletContractAddress] = useState<string | null>(null); // Corrected the state type to string or null
-  const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, 
+  const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address,
     send_buy_chicken_order, wallet_owner_address, wallet_referal_address, wallet_master_address,
     send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("kQDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-S3jL"));
   const [referal_address, setReferal_address] = useState('');
@@ -30,7 +30,7 @@ function App() {
       setReferal_address(walletAddressFromUrl);
     }
   }, []); // Empty dependency array ensures this runs only once on mount
-  
+
 
   return (
     <div>
@@ -115,14 +115,11 @@ function App() {
               params.append('username', username);
               window.Telegram.WebApp.sendData(params.toString());
               const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?${params.toString()}`;
-              navigator.share({
-                title: 'Chicken Farm Wallet Contract',
-                text: 'Check out this wallet contract address!',
-                url: telegramShareUrl,
-              });
+              window.Telegram.WebApp.openLink(telegramShareUrl, { "forward_text": "Check out this wallet contract address!" });
             }}>
               Share Wallet Address
             </button>
+
           </div>
         </div>
       )}
