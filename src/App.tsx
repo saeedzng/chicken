@@ -24,8 +24,9 @@ function App() {
 
   // Extract referral address from URL parameters and update state
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.Telegram.WebApp.initDataUnsafe.start_param);
-    const walletAddressFromUrl = urlParams.get('walletAddress');
+    // const urlParams = new URLSearchParams(window.Telegram.WebApp.initDataUnsafe.start_param);
+    // const walletAddressFromUrl = urlParams.get('walletAddress');
+    const walletAddressFromUrl = window.Telegram.WebApp.initDataUnsafe.start_param
     if (walletAddressFromUrl) {
       setReferal_address(walletAddressFromUrl);
     }
