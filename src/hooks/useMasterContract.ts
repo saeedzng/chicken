@@ -12,7 +12,7 @@ export function useMasterContract() {
   const wallet_owner_address1 = Address.parse("0QDbP6nFnSSS1dk9EHL5G_bYG0cIqPBwv1eje7uOGiVZcno8")
   const wallet_referal_address1 = Address.parse("EQDkzMK31Gn9nad9m1jnhEXXl8nKHJCf4006iyP6lSNyGs2C")
 
-  const [userwallet_address2, setUserwallet_address1] = useState<null | { wc_addressss: Address; }>();
+  const [future_user_wallet_address, setFuture_user_wallet_address] = useState<null | { wc_addressss: Address; }>();
 
   const client = useTonClient();
   const { sender } = useTonConnect();
@@ -31,13 +31,13 @@ export function useMasterContract() {
     async function getValue() {
       if (!masterContract) return;
       setContractData(null);
-      setUserwallet_address1(null);
+      setFuture_user_wallet_address(null);
       const val = await masterContract.getData();
       const balance = await masterContract.getBalance();
       const wc = await masterContract.getWalletAddress(wallet_owner_address1, wallet_referal_address1);
       setContractData({ owner_address: val.owner_sender });
       setBalance(balance.number);
-      setUserwallet_address1({ wc_addressss: wc.wallet_contract_address });
+      setFuture_user_wallet_address({ wc_addressss: wc.wallet_contract_address });
     }
     getValue();
   }, [masterContract]);
@@ -45,7 +45,7 @@ export function useMasterContract() {
   return {
     master_contract_address: masterContract?.address.toString({bounceable: false, testOnly: true}),
     master_contract_balance: balance,
-    ...userwallet_address2,
+    ...future_user_wallet_address,
     ...contractData,
     sendDeploy: () => {
       return masterContract?.sendDeploy(sender, toNano(0.02));
