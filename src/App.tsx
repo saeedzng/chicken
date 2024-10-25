@@ -17,7 +17,7 @@ function App() {
   const [page_n, setPageN] = useState(0);
   const { connected } = useTonConnect();
   const owner_address = useTonAddress();
-  const [referal_address, setReferal_address] = useState('');
+  const [referal_address, setReferal_address] = useState('kQDkzMK31Gn9nad9m1jnhEXXl8nKHJCf4006iyP6lSNyGnYI');
   useEffect(() => {
     const walletAddressFromUrl = window.Telegram.WebApp.initDataUnsafe.start_param
     if (walletAddressFromUrl) {
