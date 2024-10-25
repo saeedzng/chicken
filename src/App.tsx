@@ -61,10 +61,10 @@ function App() {
               
               // const wc = get_user_wallet_address(Address.parse (owner_address),Address.parse (referal_address));
                 sendDeployByMaster(address(referal_address));
-                if (wc_addressss) {
-                  setWalletContractAddress(wc_addressss.toString());
-                  setPageN(2);
-                }
+                // if (wc_addressss) {
+                //   setWalletContractAddress(wc_addressss.toString());
+                //   setPageN(2);
+                // }
                 // setWalletContractAddress(wc? wc.toString() : "empty2")
                  }}>Create Wallet Contract</button><br />
               <div>
