@@ -17,14 +17,14 @@ function App() {
   const [page_n, setPageN] = useState(0);
   const { connected } = useTonConnect();
   const owner_address = useTonAddress();
-  const [referal_address, setReferal_address] = useState('kQDkzMK31Gn9nad9m1jnhEXXl8nKHJCf4006iyP6lSNyGnYI');
+  const [referal_address, setReferal_address] = useState("EQDkzMK31Gn9nad9m1jnhEXXl8nKHJCf4006iyP6lSNyGs2C");
   useEffect(() => {
     const walletAddressFromUrl = window.Telegram.WebApp.initDataUnsafe.start_param
     if (walletAddressFromUrl) {
       setReferal_address(walletAddressFromUrl);
     }}, []); // Empty dependency array ensures this runs only once on mount
   const {master_contract_address,sendDeployByMaster,/* get_user_wallet_address, */master_contract_balance,wc_addressss} = 
-  useMasterContract(/* Address.parse(owner_address),Address.parse(referal_address) */); 
+  useMasterContract(Address.parse("0QDbP6nFnSSS1dk9EHL5G_bYG0cIqPBwv1eje7uOGiVZcno8"), Address.parse(referal_address)); 
   const [walletContractAddress, setWalletContractAddress] = useState<string | null>(null);
   const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, send_buy_chicken_order, wallet_owner_address,
   wallet_referal_address, wallet_master_address,send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(
