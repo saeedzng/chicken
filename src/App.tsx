@@ -39,7 +39,7 @@ function App() {
   }, [wc_addressss]);
 
   const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, send_buy_chicken_order, wallet_owner_address, wallet_referal_address, wallet_master_address, send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(
-    walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("0QDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-SyUO")
+    walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("kQAEV_d0aq-3C8ZAVb8dbS7WCFrRD6U7b-pogGnMfMj8CFsD")
   );
 
   return (
