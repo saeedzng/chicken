@@ -13,22 +13,22 @@ declare global {
 }
 
 function App() {
-  const [page_n, setPageN] = useState(0); // Use useState for managing page navigation
+  const [page_n, setPageN] = useState(0);
   const { connected } = useTonConnect();
-  const user_wallet_owner_address = useTonAddress();
+  const owner_address = useTonAddress();
+  const [referal_address, setReferal_address] = useState('');
+  useEffect(() => {
+    const walletAddressFromUrl = window.Telegram.WebApp.initDataUnsafe.start_param
+    if (walletAddressFromUrl) {
+      setReferal_address(walletAddressFromUrl);
+    }
+  }, []); // Empty dependency array ensures this runs only once on mount
   const [walletContractAddress, setWalletContractAddress] = useState<string | null>(null);
-  const { master_contract_address, sendDeployByMaster, master_contract_balance, wc_addressss } = useMasterContract(); 
+  const {master_contract_address,sendDeployByMaster,get_user_wallet_address,master_contract_balance,wc_addressss} = useMasterContract(); 
   const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, send_buy_chicken_order, wallet_owner_address,
   wallet_referal_address, wallet_master_address,send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(
   walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("kQDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-S3jL"));
-  const [referal_address, setReferal_address] = useState('');
-      // Extract referral address from URL parameters and update state
-      useEffect(() => {
-        const walletAddressFromUrl = window.Telegram.WebApp.initDataUnsafe.start_param
-        if (walletAddressFromUrl) {
-          setReferal_address(walletAddressFromUrl);
-        }
-      }, []); // Empty dependency array ensures this runs only once on mount
+
 
 
 
@@ -56,8 +56,13 @@ function App() {
           {connected && (
             <>
               <label>Referral address: {referal_address}</label><br /><br /> 
-              <button className='button' onClick={() => { 
-                sendDeployByMaster(address(referal_address));setPageN(2); }}>Create Wallet Contract</button><br />
+              <button className='button'  onClick={() => { 
+              
+              const wc = get_user_wallet_address(Address.parse (owner_address),Address.parse (referal_address));
+                sendDeployByMaster(address(referal_address));
+                setWalletContractAddress(wc? wc.toString() : "empty")
+                setPageN(2);
+                 }}>Create Wallet Contract</button><br />
               <div>
                 <label>Deployed contract at: <a>{wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
               </div>
@@ -67,7 +72,7 @@ function App() {
                   setPageN(2);
                 }
               }}>Open Wallet Contract</button><b></b>
-              <p>owner : {user_wallet_owner_address}</p>
+              <p>owner : {owner_address}</p>
             </>
           )}
         </>
