@@ -108,21 +108,22 @@ function App() {
             )}
           </div>
           <div>
-            <button onClick={() => {
-              const username = window.Telegram.WebApp.initDataUnsafe.user?.username || 'unknown';
-              const params = new URLSearchParams();
-              params.append('walletAddress', wallet_contract_address || '');
-              params.append('username', username);
-              const shareUrl = `${window.location.origin}?${params.toString()}`;
-              navigator.share({
-                title: 'Chicken Farm Wallet Contract',
-                text: 'Check out this wallet contract address!',
-                url: shareUrl,
-              });
-            }}>
-              Share Wallet Address
-            </button>
 
+            
+          <button onClick={() => {
+  const username = window.Telegram.WebApp.initDataUnsafe.user?.username || 'unknown';
+  const params = new URLSearchParams();
+  params.append('walletAddress', wallet_contract_address || '');
+  params.append('username', username);
+  const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?${params.toString()}`;
+  navigator.share({
+    title: 'Chicken Farm Wallet Contract',
+    text: 'Check out this wallet contract address!',
+    url: telegramShareUrl,
+  });
+}}>
+  Share Wallet Address
+</button>
 
 
           </div>
