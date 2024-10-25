@@ -5,6 +5,7 @@ import { useWalletContract } from "./hooks/useWalletContract";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { fromNano, address, Address } from "ton-core";
 import { useState, useEffect } from 'react';
+import WebApp from "@twa-dev/sdk";
 
 declare global {
   interface Window {
@@ -76,7 +77,7 @@ function App() {
                 }
               }}>Open Wallet Contract</button><b></b>
               <button onClick={()=>{
-                window.Telegram.showAlert(wc_addressss + ' + ' + walletContractAddress)
+                WebApp.showAlert(wc_addressss + ' + ' + walletContractAddress)
               }}>show alert</button>
               <p>owner : {owner_address}</p>
             </>
