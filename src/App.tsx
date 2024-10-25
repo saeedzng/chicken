@@ -1,5 +1,5 @@
 import "./App.css";
-import { TonConnectButton } from "@tonconnect/ui-react";
+import { TonConnectButton ,useTonAddress } from "@tonconnect/ui-react";
 import { useMasterContract } from "./hooks/useMasterContract";
 import { useWalletContract } from "./hooks/useWalletContract";
 import { useTonConnect } from "./hooks/useTonConnect";
@@ -15,7 +15,7 @@ declare global {
 function App() {
   const [page_n, setPageN] = useState(0); // Use useState for managing page navigation
   const { connected } = useTonConnect();
-  const user_wallet_owner_address = TonConnectButton.displayName?.toString();
+  const user_wallet_owner_address = useTonAddress();
   const [walletContractAddress, setWalletContractAddress] = useState<string | null>(null);
   const { master_contract_address, sendDeployByMaster, master_contract_balance, wc_addressss } = useMasterContract(); 
   const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, send_buy_chicken_order, wallet_owner_address,
@@ -67,7 +67,7 @@ function App() {
                   setPageN(2);
                 }
               }}>Open Wallet Contract</button><b></b>
-              <p>{user_wallet_owner_address}</p>
+              <p>owner : {user_wallet_owner_address}</p>
             </>
           )}
         </>
