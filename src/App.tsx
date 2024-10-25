@@ -24,12 +24,13 @@ function App() {
 
   // Extract referral address from URL parameters and update state
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.Telegram.WebApp.initData);
+    const urlParams = new URLSearchParams(window.location.search);
     const walletAddressFromUrl = urlParams.get('walletAddress');
     if (walletAddressFromUrl) {
       setReferal_address(walletAddressFromUrl);
     }
   }, []); // Empty dependency array ensures this runs only once on mount
+  
 
   return (
     <div>
@@ -108,9 +109,10 @@ function App() {
           </div>
           <div>
             <button onClick={() => {
-              // const queryId = window.Telegram.WebApp.initDataUnsafe.query_id;
+              const username = window.Telegram.WebApp.initDataUnsafe.user?.username || 'unknown';
               const params = new URLSearchParams();
               params.append('walletAddress', wallet_contract_address || '');
+              params.append('username', username);
               window.Telegram.WebApp.sendData(params.toString());
               const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?${params.toString()}`;
               navigator.share({
