@@ -108,17 +108,17 @@ function App() {
             )}
           </div>
           <div>
-            <button onClick={() => {
-              const username = window.Telegram.WebApp.initDataUnsafe.user?.username || 'unknown';
-              const params = new URLSearchParams();
-              params.append('walletAddress', wallet_contract_address || '');
-              params.append('username', username);
-              window.Telegram.WebApp.sendData(params.toString());
-              const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?${params.toString()}`;
-              window.Telegram.WebApp.openLink(telegramShareUrl, { "forward_text": "Check out this wallet contract address!" });
-            }}>
-              Share Wallet Address
-            </button>
+          <button onClick={() => {
+  const username = window.Telegram.WebApp.initDataUnsafe.user?.username || 'unknown';
+  const params = new URLSearchParams();
+  params.append('walletAddress', wallet_contract_address || '');
+  params.append('username', username);
+  const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?${params.toString()}`;
+  window.Telegram.WebApp.openLink(telegramShareUrl);
+}}>
+  Share Wallet Address
+</button>
+
 
           </div>
         </div>
