@@ -6,11 +6,10 @@ import { Address, OpenedContract } from 'ton-core';
 import { toNano } from "ton-core";
 import { useTonConnect } from "./useTonConnect";
 
-
-export function useWalletContract(UserAddress:Address) {
+export function useWalletContract(UserAddress: Address) {
   const client = useTonClient();
   const { sender } = useTonConnect();
-  // const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+  
   const [contractData, setContractData] = useState<null | {
     ch_number: number;
     owner_address: Address;
@@ -19,44 +18,54 @@ export function useWalletContract(UserAddress:Address) {
     eggs_number: number;
     last_calc: number;
     first_buy: number;
-  }>();
-  const [balance, setBalance] = useState<null | number>(0);
+  }>(null);
+  
+  const [balance, setBalance] = useState<null | number>(null);
+  
+  // Initialize wallet contract
   const walletContract = useAsyncInitialize(async () => {
-    if (!client) return;
-    const contract = new WalletContract(UserAddress
-      // Address.parse("0QC5jHeAZjxjVdK3wi1-wLxVjE_VIMjlMFnlRjiHoVYw5Kp1") // replace with your address
-    );
+    if (!client || !UserAddress) return null; // Ensure UserAddress is provided
+    const contract = new WalletContract(UserAddress);
     return client.open(contract) as OpenedContract<WalletContract>;
-  }, [client]);
+  }, [client, UserAddress]); // Add UserAddress as a dependency
 
+  // Fetch contract data whenever walletContract or UserAddress changes.
   useEffect(() => {
     async function getValue() {
       if (!walletContract) return;
+
+      // Clear previous state
       setContractData(null);
-      const val = await walletContract.getData();
-      const balance = await walletContract.getBalance();
-      setContractData({
-        ch_number: val.chicken_number,
-        owner_address: val.owner_address,
-        master_address: val.master_address,
-        referal_address: val.referal_address,
-        eggs_number: val.eggs_number,
-        last_calc: val.last_calc,
-        first_buy: val.first_buy,
-      });
-      setBalance(balance.number);
-      // await sleep(150000); // sleep 15 seconds and poll value again
-      // getValue();
+      setBalance(null);
+
+      try {
+        const val = await walletContract.getData();
+        const balance = await walletContract.getBalance();
+
+        setContractData({
+          ch_number: val.chicken_number,
+          owner_address: val.owner_address,
+          master_address: val.master_address,
+          referal_address: val.referal_address,
+          eggs_number: val.eggs_number,
+          last_calc: val.last_calc,
+          first_buy: val.first_buy,
+        });
+        setBalance(balance.number);
+      } catch (error) {
+        console.error("Error fetching wallet contract data:", error);
+      }
     }
+    
     getValue();
-  }, [walletContract]);
+  }, [walletContract]); // Re-run when walletContract changes
 
   return {
-    wallet_contract_address: walletContract?.address.toString({bounceable: false, testOnly: true}),
+    wallet_contract_address: walletContract?.address.toString({ bounceable: false, testOnly: true }),
     wallet_contract_balance: balance,
-    wallet_owner_address: contractData?.owner_address?.toString({bounceable: false, testOnly: true}),
-    wallet_referal_address: contractData?.referal_address?.toString({bounceable: false, testOnly: true}),
-    wallet_master_address: contractData?.master_address?.toString({bounceable: false, testOnly: true}),
+    wallet_owner_address: contractData?.owner_address?.toString({ bounceable: false, testOnly: true }),
+    wallet_referal_address: contractData?.referal_address?.toString({ bounceable: false, testOnly: true }),
+    wallet_master_address: contractData?.master_address?.toString({ bounceable: false, testOnly: true }),
     ...contractData,
     send_buy_chicken_order: (chicken_to_buy: number) => {
       return walletContract?.send_buy_chicken_order(sender, toNano(0.1), chicken_to_buy);

@@ -73,7 +73,7 @@ function App() {
                 setPageN(2);
               }}>Open Wallet Contract</button>
               <button onClick={() => {
-              WebApp.showAlert((wc_addressss + ' - ' + walletContractAddress))
+              WebApp.showAlert((wc_addressss + ' --- ' + walletContractAddress))
 
                }}>show alert</button>
               <p>owner : {owner_address}</p>
