@@ -18,7 +18,7 @@ function App() {
   const { connected } = useTonConnect();
   const owner_address = useTonAddress();
   const [referal_address, setReferal_address] = useState("EQDkzMK31Gn9nad9m1jnhEXXl8nKHJCf4006iyP6lSNyGs2C");
-  const [walletContractAddress, setWalletContractAddress] = useState<string | null>(null); 
+  const [walletContractAddress, setWalletContractAddress] = useState<string | null>(null);
 
   useEffect(() => {
     const walletAddressFromUrl = window.Telegram.WebApp.initDataUnsafe.start_param;
@@ -38,9 +38,8 @@ function App() {
     }
   }, [wc_addressss]);
 
-  const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, send_buy_chicken_order, wallet_owner_address, wallet_referal_address, wallet_master_address, send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(
-    walletContractAddress ? Address.parse(walletContractAddress) : Address.parse("kQAEV_d0aq-3C8ZAVb8dbS7WCFrRD6U7b-pogGnMfMj8CFsD")
-  );
+  const walletAddress = walletContractAddress || "0QDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-SyUO";
+  const { ch_number, eggs_number, wallet_contract_balance, wallet_contract_address, send_buy_chicken_order, wallet_owner_address, wallet_referal_address, wallet_master_address, send_sell_chicken_order, send_recive_eggs_order } = useWalletContract(Address.parse(walletAddress));
 
   return (
     <div>
@@ -66,13 +65,12 @@ function App() {
           {connected && (
             <>
               <label>Referral address: {referal_address}</label><br /><br />
-              <button className='button' onClick={() => { sendDeployByMaster(address(referal_address)); window.location.reload(); }}>Create Wallet Contract</button><br />
+              <button className='button' onClick={() => { sendDeployByMaster(address(referal_address))}}>Create Wallet Contract</button><br />
               <div>
                 <label>Deployed contract at: <a>{wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
               </div>
               <button onClick={() => {
                 if (wc_addressss) {
-                  setWalletContractAddress(wc_addressss.toString());
                   setPageN(2);
                 }
               }}>Open Wallet Contract</button>
