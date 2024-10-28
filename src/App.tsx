@@ -74,10 +74,13 @@ function App() {
                   setPageN(2);
                 }
                 if (walletAddress == "0QDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-SyUO" ) {
-                  WebApp.showAlert(walletAddress)
+                  WebApp.showAlert((wc_addressss + ' + ' + walletAddress + ' + ' + walletContractAddress))
                 }
               }}>Open Wallet Contract</button>
-              <button onClick={() => { WebApp.showAlert(wc_addressss + ' + ' + walletAddress) }}>show alert</button>
+              <button onClick={() => {
+              useWalletContract(Address.parse(walletAddress));
+
+               }}>show alert</button>
               <p>owner : {owner_address}</p>
             </>
           )}
