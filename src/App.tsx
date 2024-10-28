@@ -69,12 +69,8 @@ function App() {
                 <label>Deployed contract at: <a>{wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
               </div>
               <button onClick={() => {
-                    if (wc_addressss) {
-                      setWalletContractAddress(wc_addressss.toString());
-                    }
                 useWalletContract(Address.parse(walletContractAddress));
-                  setPageN(2);
-                
+                setPageN(2);
               }}>Open Wallet Contract</button>
               <button onClick={() => {
               WebApp.showAlert((wc_addressss + ' + ' + walletContractAddress))
