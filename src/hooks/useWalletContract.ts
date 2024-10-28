@@ -39,7 +39,7 @@ export function useWalletContract(UserAddress:Address) {
         ch_number: val.chicken_number,
         owner_address: val.owner_address,
         master_address: val.master_address,
-        referal_address: val.master_address,
+        referal_address: val.referal_address,
         eggs_number: val.eggs_number,
         last_calc: val.last_calc,
         first_buy: val.first_buy,
