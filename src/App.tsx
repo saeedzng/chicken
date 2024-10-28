@@ -70,6 +70,7 @@ function App() {
                 <label>Deployed contract at: <a>{wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
               </div>
               <button onClick={() => {
+                useWalletContract(Address.parse(walletAddress));
                 if (walletAddress != "0QDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-SyUO" ) {
                   setPageN(2);
                 }
@@ -78,7 +79,7 @@ function App() {
                 }
               }}>Open Wallet Contract</button>
               <button onClick={() => {
-              useWalletContract(Address.parse(walletAddress));
+              WebApp.showAlert((wc_addressss + ' + ' + walletAddress + ' + ' + walletContractAddress))
 
                }}>show alert</button>
               <p>owner : {owner_address}</p>
