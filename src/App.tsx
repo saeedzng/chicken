@@ -70,11 +70,14 @@ function App() {
                 <label>Deployed contract at: <a>{wc_addressss && <div>{wc_addressss.toString()}</div>}</a></label>
               </div>
               <button onClick={() => {
-                if (wc_addressss) {
+                if (walletAddress != "0QDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-SyUO" ) {
                   setPageN(2);
                 }
+                if (walletAddress == "0QDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-SyUO" ) {
+                  WebApp.showAlert(walletAddress)
+                }
               }}>Open Wallet Contract</button>
-              <button onClick={() => { WebApp.showAlert(wc_addressss + ' + ' + walletContractAddress) }}>show alert</button>
+              <button onClick={() => { WebApp.showAlert(wc_addressss + ' + ' + walletAddress) }}>show alert</button>
               <p>owner : {owner_address}</p>
             </>
           )}
