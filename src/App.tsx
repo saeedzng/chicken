@@ -18,7 +18,7 @@ function App() {
   const { connected } = useTonConnect();
   const owner_address = useTonAddress();
   const [referal_address, setReferal_address] = useState("EQDkzMK31Gn9nad9m1jnhEXXl8nKHJCf4006iyP6lSNyGs2C");
-  const [walletContractAddress, setWalletContractAddress] = useState<string>("kQBtdi89RMS2KCgNNWELfbjGdq_3sy7nKsyFCFohUd1ZXDZw");
+  const [walletContractAddress, setWalletContractAddress] = useState<string>("kQCC8qWDzWBLEP-qpQEWSZvNp_I8fm9IVnedG_9T-n-9D-W6");
 
   useEffect(() => {
     const walletAddressFromUrl = window.Telegram.WebApp.initDataUnsafe.start_param;
